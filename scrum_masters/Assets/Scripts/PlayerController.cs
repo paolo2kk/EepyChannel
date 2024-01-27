@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour
     GameObject gb;
     Rigidbody2D rb;
 
+    [Header("Movement")]
     public float Xspeed = 2;
     public float Yspeed = 6;
     private bool isGrounded;
@@ -18,6 +20,16 @@ public class Player : MonoBehaviour
     float directionY;
 
     private bool isWearingGlasses = false;
+
+    [Header("Combat")]
+    public Transform meeleAttackOrigin = null;
+    public float meeleAttackRadius = 0.6f;
+    public float meleeDamage = 2f;
+    public float meeleAttackDelay = 1.1f;
+    public LayerMask enemyLayer = 8;
+    public KeyCode meleeAtackKey = KeyCode.J;
+    private float timeUntilMeleeReadied = 0f;
+    private bool attemptMeleeAttack = false;
 
     void Start()
     {
@@ -28,10 +40,17 @@ public class Player : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    private void GetInput()
+    {
+        attemptMeleeAttack = Input.GetKeyDown(meleeAtackKey);
+        directionX = Input.GetAxis("Horizontal");
+
+    }
+
     void Update()
     {
-        directionX = Input.GetAxis("Horizontal");
+        GetInput();
+        HandleMeeleAttack();
 
         //animator.SetBool("isWalking", true);
         Vector3 movement = new Vector3(directionX, 0f, 0f);
@@ -90,6 +109,28 @@ public class Player : MonoBehaviour
 
     }
 
+    private void HandleMeeleAttack()
+    {
+        if(attemptMeleeAttack && timeUntilMeleeReadied <= 0)
+        {
+            Debug.Log("aaaaa");
+            Collider2D[] overlappedColliders = Physics2D.OverlapCircleAll(meeleAttackOrigin.position, meeleAttackRadius, enemyLayer);
+            for(int i = 0; i < overlappedColliders.Length; i++)
+            {
+                IDamageable enemyAttributes = overlappedColliders[i].GetComponent<IDamageable>();
+                if (enemyAttributes != null)
+                {
+                    enemyAttributes.ApplyDamage(meleeDamage);
+                }
+            }
+            timeUntilMeleeReadied = meeleAttackDelay;
+
+        }
+        else
+        {
+            timeUntilMeleeReadied -= Time.deltaTime;
+        }
+    }
 
 }
 
