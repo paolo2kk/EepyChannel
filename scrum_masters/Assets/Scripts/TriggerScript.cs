@@ -6,25 +6,19 @@ using UnityEngine.SceneManagement;
 public class TriggerScript : MonoBehaviour
 {
     public GameObject objectToEnable;
- 
-    void Start()
-    {
-    }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Box")
         {
             objectToEnable.SetActive(true);
-
-         
 
         }
 
     }
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Box")
         {
             objectToEnable.SetActive(false);
 

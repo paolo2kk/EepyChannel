@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public GameObject world2;
     GameObject gb;
     Rigidbody2D rb;
+    public AudioManager audioManager;
 
     [Header("Movement")]
     public float Xspeed = 2;
@@ -38,8 +39,12 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         SwitchWorlds();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-
+        animator = GetComponent<Animator>();
+        audioManager = FindObjectOfType<AudioManager>();
+        if (audioManager == null)
+        {
+            Debug.LogError("AudioManager not found in the scene!");
+        }
     }
 
     private void GetInput()
@@ -56,13 +61,24 @@ public class Player : MonoBehaviour
         HandleMeeleAttack();
         float horizontalInput = Input.GetAxis("Horizontal");
         Flip(horizontalInput);
-        //animator.SetBool("isWalking", true);
+
+        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
+            animator.SetBool("Walking", true);
+
+        }
+        else
+        {
+            animator.SetBool("Walking", false);
+
+        }
+
         Vector3 movement = new Vector3(directionX, 0f, 0f);
         transform.position += movement * Xspeed * Time.deltaTime;
 
         if (Input.GetButtonDown("Jump"))
         {
-            //audioManager.PlaySFX(audioManager.Jump);
+       
             //animator.SetBool("isJumping", true);
         }
         else
@@ -80,8 +96,17 @@ public class Player : MonoBehaviour
             isWearingGlasses = !isWearingGlasses;
             SwitchWorlds();
         }
-        
-
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            if (audioManager != null)
+            {
+                audioManager.PlaySFX(audioManager.jumpsound);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
 
     }
 
@@ -101,7 +126,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Box"))
         {
             isGrounded = true;
         }
@@ -109,7 +134,7 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Box"))
         {
             isGrounded = false;
         }
@@ -149,6 +174,7 @@ public class Player : MonoBehaviour
             spriteRenderer.flipX = true;
         }
     }
+    
 
 }
 

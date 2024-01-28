@@ -5,7 +5,7 @@ using UnityEngine;
 public class TriggerManager : MonoBehaviour
 {
     public int counter = 0;
-    public int desiredcounter = 0;
+    public int desiredcounter = 1;
     public GameObject gb1;
     public GameObject gb2;
 
@@ -19,7 +19,7 @@ public class TriggerManager : MonoBehaviour
         }
         else
         {
-            gb2.SetActive (false);
+        
         }
     }
 
