@@ -18,4 +18,18 @@ public class Passcode : MonoBehaviour
         Nr = Nr + Numbers;
         UiText.text = Nr;
     }
+
+    public void Enter()
+    {
+        if(Nr == code)
+        {
+            Debug.Log("It's Working");
+        }
+    }
+    public void Delete()
+    {
+        NrIndex++;
+        Nr = null;
+        UiText.text = Nr;
+    }
 }

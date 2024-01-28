@@ -18,7 +18,8 @@ public class Player : MonoBehaviour
     private bool isGrounded;
     float directionX;
     float directionY;
-
+    private SpriteRenderer spriteRenderer;
+    private bool facingRight = true;
     private bool isWearingGlasses = false;
 
     [Header("Combat")]
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
         gb = GetComponent<GameObject>();
         rb = GetComponent<Rigidbody2D>();
         SwitchWorlds();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
 
     }
@@ -44,14 +46,16 @@ public class Player : MonoBehaviour
     {
         attemptMeleeAttack = Input.GetKeyDown(meleeAtackKey);
         directionX = Input.GetAxis("Horizontal");
-
     }
 
     void Update()
     {
+        
+
         GetInput();
         HandleMeeleAttack();
-
+        float horizontalInput = Input.GetAxis("Horizontal");
+        Flip(horizontalInput);
         //animator.SetBool("isWalking", true);
         Vector3 movement = new Vector3(directionX, 0f, 0f);
         transform.position += movement * Xspeed * Time.deltaTime;
@@ -76,6 +80,7 @@ public class Player : MonoBehaviour
             isWearingGlasses = !isWearingGlasses;
             SwitchWorlds();
         }
+        
 
 
     }
@@ -83,6 +88,8 @@ public class Player : MonoBehaviour
     void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, Yspeed);
+        isGrounded = false;
+
     }
     void SwitchWorlds()
     {
@@ -129,6 +136,17 @@ public class Player : MonoBehaviour
         else
         {
             timeUntilMeleeReadied -= Time.deltaTime;
+        }
+    }
+    void Flip(float horizontalInput)
+    {
+        if (horizontalInput > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (horizontalInput < 0)
+        {
+            spriteRenderer.flipX = true;
         }
     }
 
