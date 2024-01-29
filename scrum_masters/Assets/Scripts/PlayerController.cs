@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private bool facingRight = true;
     private bool isWearingGlasses = false;
+    public bool spring;
+    public float springJumpForce = 2f;
 
     [Header("Combat")]
     public Transform meeleAttackOrigin = null;
@@ -29,6 +31,7 @@ public class Player : MonoBehaviour
     public float meleeDamage = 2f;
     public float meeleAttackDelay = 1.1f;
     public LayerMask enemyLayer = 8;
+    public LayerMask springLayer = 6;
     public KeyCode meleeAtackKey = KeyCode.J;
     private float timeUntilMeleeReadied = 0f;
     private bool attemptMeleeAttack = false;
@@ -107,7 +110,16 @@ public class Player : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        IsSpring();
+        if (IsSpring())
+        {
+            rb.velocity = new Vector2(directionX, springJumpForce);
+        }
+    }
 
+    bool IsSpring()
+    {
+        return Physics2D.OverlapBox(transform.position - new Vector3(0, 0f, 0), new Vector2(1f, 3f), 0, LayerMask.GetMask("Spring"));
     }
 
     void Jump()
@@ -152,7 +164,7 @@ public class Player : MonoBehaviour
                 IDamageable enemyAttributes = overlappedColliders[i].GetComponent<IDamageable>();
                 if (enemyAttributes != null)
                 {
-                    enemyAttributes.ApplyDamage(meleeDamage);
+                    enemyAttributes.ApplyDamage(0);
                 }
             }
             timeUntilMeleeReadied = meeleAttackDelay;
