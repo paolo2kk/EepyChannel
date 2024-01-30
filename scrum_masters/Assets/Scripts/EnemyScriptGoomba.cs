@@ -2,30 +2,59 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public Transform pointA;
-    public Transform pointB;
-    public float speed = 2f;
+    public float speed = 5f;
+    public float raycastDistance = 0.5f;
+    public LayerMask groundLayer;
+    public float flipDelay = 0.5f; // Adjust this value as needed
 
-    private float t = 0f;
+    private bool movingRight = true;
+    private float timeSinceLastFlip;
 
     void Update()
     {
-        MoveEnemy();
+        // Move the enemy
+        Move();
+
+        // Check for ground in front of the enemy
+        CheckGround();
     }
 
-    void MoveEnemy()
+    void Move()
     {
-        t += Time.deltaTime * speed;
+        // Calculate movement vector
+        Vector2 movement = movingRight ? Vector2.right : Vector2.left;
 
-        if (t > 1.0f)
+        // Move the enemy
+        transform.Translate(movement * speed * Time.deltaTime);
+    }
+
+    void CheckGround()
+    {
+        // Only check for ground after a certain delay
+        if (Time.time - timeSinceLastFlip > flipDelay)
         {
-            Transform temp = pointA;
-            pointA = pointB;
-            pointB = temp;
+            // Cast a ray downward to check for ground
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, groundLayer);
 
-            t = 0f;
+            // If no ground is detected, turn back
+            if (!hit.collider)
+            {
+                Flip();
+            }
         }
+    }
 
-        transform.position = Vector3.Lerp(pointA.position, pointB.position, t);
+    void Flip()
+    {
+        // Change the direction of movement
+        movingRight = !movingRight;
+
+        // Flip the enemy sprite
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
+
+        // Update the time of the last flip
+        timeSinceLastFlip = Time.time;
     }
 }

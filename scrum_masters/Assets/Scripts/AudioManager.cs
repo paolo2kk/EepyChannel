@@ -6,18 +6,18 @@ using UnityEngine.UIElements;
 public class AudioManager : MonoBehaviour
 {
 
-    public AudioSource musicSource;
     public AudioSource SFXSource;
+    public AudioSource MusicSource;
 
+    public AudioClip music;
     public AudioClip reset;
     public AudioClip jumpsound;
-    public AudioClip background;
 
     private void Awake()
     {
-        musicSource.clip = background;
-        musicSource.loop = true;
-        musicSource.Play();
+       
+       MusicSource.clip = music;
+       MusicSource.Play();
 
     }
 
@@ -26,8 +26,5 @@ public class AudioManager : MonoBehaviour
         SFXSource.PlayOneShot(clip);
     }
 
-    public void PlayMusic(AudioClip clip)
-    {
-        musicSource.PlayOneShot(clip);
-    }
+    
 }
