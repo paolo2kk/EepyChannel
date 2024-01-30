@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Box
+  - Enemy
+  - goombacollider
   layers:
   - Default
   - TransparentFX

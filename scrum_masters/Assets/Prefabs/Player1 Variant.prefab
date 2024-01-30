@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7387874471735621160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8236591201379834926}
+  m_Layer: 0
+  m_Name: GroundCheckPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8236591201379834926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7387874471735621160}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.078, y: -0.224, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1402822710962935499}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &494496622304155178
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92,18 +123,38 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.64
       objectReference: {fileID: 0}
+    - target: {fileID: 4518588809406346243, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}
+      propertyPath: m_Mass
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4518588809406346243, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}
+      propertyPath: m_GravityScale
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497490344937573943, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}
+      propertyPath: Yspeed
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5497490344937573943, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 6764004625008802947}
     - target: {fileID: 5497490344937573943, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}
       propertyPath: springJumpForce
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5497490344937573943, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}
       propertyPath: enemyLayer.m_Bits
       value: 256
       objectReference: {fileID: 0}
+    - target: {fileID: 5497490344937573943, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}
+      propertyPath: groundCheckRadius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497490344937573943, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}
+      propertyPath: groundCheckPosition
+      value: 
+      objectReference: {fileID: 8236591201379834926}
     - target: {fileID: 5620706999592528478, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}
       propertyPath: m_Size.x
       value: 0.47
@@ -134,7 +185,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1561374528202473697, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8236591201379834926}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6232772148602768606, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}
       insertIndex: -1
@@ -143,6 +197,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6306783218679964864}
   m_SourcePrefab: {fileID: 100100000, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}
+--- !u!4 &1402822710962935499 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1561374528202473697, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}
+  m_PrefabInstance: {fileID: 494496622304155178}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5810645388083550964 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6232772148602768606, guid: a3b22e47605e97e41b0f5402fc1419f6, type: 3}

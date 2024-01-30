@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     GameObject gb;
     Rigidbody2D rb;
     public AudioManager audioManager;
+    public float groundCheckRadius = 0.2f;
+
 
     [Header("Movement")]
     public float Xspeed = 2;
@@ -48,6 +50,7 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("AudioManager not found in the scene!");
         }
+       
     }
 
     private void GetInput()
@@ -58,37 +61,27 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        
+
 
         GetInput();
         HandleMeeleAttack();
+        isGrounded = IsGrounded();
         float horizontalInput = Input.GetAxis("Horizontal");
         Flip(horizontalInput);
 
-        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
             animator.SetBool("Walking", true);
-
         }
         else
         {
             animator.SetBool("Walking", false);
-
         }
 
         Vector3 movement = new Vector3(directionX, 0f, 0f);
         transform.position += movement * Xspeed * Time.deltaTime;
 
-        if (Input.GetButtonDown("Jump"))
-        {
-       
-            //animator.SetBool("isJumping", true);
-        }
-        else
-        {
-            //animator.SetBool("isJumping", false);
 
-        }
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
             Jump();
@@ -99,17 +92,32 @@ public class Player : MonoBehaviour
             isWearingGlasses = !isWearingGlasses;
             SwitchWorlds();
         }
+
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             if (audioManager != null)
             {
                 audioManager.PlaySFX(audioManager.jumpsound);
+                
             }
         }
+        if(Input.GetKey(KeyCode.Space))
+        {
+            animator.SetBool("Jumping", true);
+
+        }
+        else
+        {
+            animator.SetBool("Jumping", false);
+
+        }
+
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
         IsSpring();
         if (IsSpring())
         {
@@ -125,7 +133,6 @@ public class Player : MonoBehaviour
     void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, Yspeed);
-        isGrounded = false;
 
     }
     void SwitchWorlds()
@@ -136,21 +143,18 @@ public class Player : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    bool IsGrounded()
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Box"))
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, groundCheckRadius);
+        foreach (Collider2D collider in colliders)
         {
-            isGrounded = true;
-        }
-        
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Box"))
-        {
-            isGrounded = false;
+            if (collider.CompareTag("Ground") || collider.CompareTag("Box"))
+            {
+                return true;
+            }
         }
 
+        return false;
     }
 
     private void HandleMeeleAttack()
