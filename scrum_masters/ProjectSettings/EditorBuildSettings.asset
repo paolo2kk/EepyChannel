@@ -35,7 +35,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CampoDeBatalla 7.unity
     guid: ed97b47b6b8c39a4498e867105a0c4f6
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/CampoDeBatalla 8.unity
     guid: e429fe534da8f37419b9941344bf052b
+  - enabled: 1
+    path: Assets/Scenes/CampoDeBatalla 9.unity
+    guid: 3afea8e48c8b69540a985af0940db403
   m_configObjects: {}

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class AddMaterialToCamera : MonoBehaviour
 {
     public Material customMaterial; 
@@ -22,5 +22,7 @@ public class AddMaterialToCamera : MonoBehaviour
         {
             Debug.LogError("No Camera component found on the GameObject.");
         }
+        
+
     }
 }
