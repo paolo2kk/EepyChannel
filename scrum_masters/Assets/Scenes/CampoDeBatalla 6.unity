@@ -5628,9 +5628,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SFXSource: {fileID: 1613752430}
   MusicSource: {fileID: 183722641}
-  music: {fileID: 8300000, guid: 2167d61d6f43118409b83c90105fb617, type: 3}
+  music: {fileID: 8300000, guid: 8805badfd28342a47821da69c214dda3, type: 3}
   reset: {fileID: 8300000, guid: bf9e149a7f252814db95ffab0cf4ef40, type: 3}
-  jumpsound: {fileID: 8300000, guid: bf9e149a7f252814db95ffab0cf4ef40, type: 3}
+  jumpsound: {fileID: 8300000, guid: 6df924455ec91794b9eb35438f8addaf, type: 3}
 --- !u!1 &661123684
 GameObject:
   m_ObjectHideFlags: 0
