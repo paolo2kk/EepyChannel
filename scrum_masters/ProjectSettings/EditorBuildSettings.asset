@@ -41,4 +41,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CampoDeBatalla 9.unity
     guid: 3afea8e48c8b69540a985af0940db403
+  - enabled: 1
+    path: Assets/Scenes/CampoDeBatalla 10.unity
+    guid: 5498fa7d45616d3439cda5eddc1879e1
+  - enabled: 1
+    path: Assets/Scenes/CampoDeBatalla 11.unity
+    guid: f6394da00be92e443b3872c051da62a3
+  - enabled: 1
+    path: Assets/Scenes/Cinematica.unity
+    guid: 2145739f7df3ff7469cf2d948ec3bfd8
   m_configObjects: {}
