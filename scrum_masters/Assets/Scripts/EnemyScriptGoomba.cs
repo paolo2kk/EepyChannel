@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class EnemyMovement : MonoBehaviour
 {
     public float speed = 2f;
@@ -22,6 +22,10 @@ public class EnemyMovement : MonoBehaviour
         if (other.CompareTag("goombacollider"))
         {
             Flip();
+        }
+        if (other.CompareTag("Player"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
