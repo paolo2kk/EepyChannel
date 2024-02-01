@@ -69,6 +69,11 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         Flip(horizontalInput);
 
+        if (Input.GetKey(KeyCode.L))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
             animator.SetBool("Walking", true);

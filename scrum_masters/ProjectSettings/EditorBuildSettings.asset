@@ -47,7 +47,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CampoDeBatalla 11.unity
     guid: f6394da00be92e443b3872c051da62a3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cinematica.unity
     guid: 2145739f7df3ff7469cf2d948ec3bfd8
+  - enabled: 1
+    path: Assets/Scenes/aversiva.unity
+    guid: 079046d2e36bdca489321bc453ab04e4
   m_configObjects: {}
